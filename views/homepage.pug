@@ -10,5 +10,6 @@ html
         .cards 
             each game in data
                 .card 
-                    h2.card__name #{game.properties.name}  #{game.properties.platform}
-                    p.card__email #{game.properties.release_year}        
+                    h2.card__name Game Name: #{game.properties.name}
+                    p On these platforms #{game.properties.platform}
+                    p.card__email Released on #{game.properties.release_year}        
