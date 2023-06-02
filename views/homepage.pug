@@ -7,8 +7,8 @@ html
     body    
         h1 Games table
         a(href='/update-cobj') Add/Update this table
-            .cards 
-                each game in data
-                    .card 
-                        h2.card__name #{game.properties.name}  #{game.properties.platform}
-                        p.card__email #{game.properties.release_year}       
+        .cards 
+            each game in data
+                .card 
+                    h2.card__name #{game.properties.name}  #{game.properties.platform}
+                    p.card__email #{game.properties.release_year}       
