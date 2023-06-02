@@ -25,6 +25,7 @@ app.get('/', async (req, res) => {
     try {
         const resp = await axios.get('/crm/v3/objects/2-114786107?properties=name,platform,release_year', config);
         const data = resp.data.results;
+        console.log(data)
         res.render('homepage', { title: 'Games table', data });
     } catch (error) {
         console.error(error);
@@ -50,15 +51,15 @@ app.get('/update-cobj', async (req, res) => {
 
 // * Code for Route 3 goes here
 app.post('/update-cobj', async (req, res) => {
-    const body = {
+    const body = JSON.stringify({
         properties: {
-            "name": req.body.newVal,
-            "platform": req.body.newVal2,
-            "release_year": req.body.newVal3
+            name: req.body.newVal,
+            platform: req.body.newVal2,
+            release_year: req.body.newVal3
         }
-    }
+    })
     try {
-        await axios.patch('/crm/v3/objects/2-114786107', body, config);
+        await axios.post('/crm/v3/objects/2-114786107', body, config);
         res.redirect('/');
     } catch (err) {
         console.error(err);
