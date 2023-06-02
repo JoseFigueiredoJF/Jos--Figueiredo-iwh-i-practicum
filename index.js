@@ -22,11 +22,9 @@ const axios = axiosLib.create({ baseURL: 'https://api.hubapi.com' });
 
 // * Code for Route 1 goes here
 app.get('/', async (req, res) => {
-    const gamesList = '/crm/v3/objects/2-114786107?properties=name,platform,release_year';
     try {
-        const resp = await axios.get(gamesList, config);
+        const resp = await axios.get('/crm/v3/objects/2-114786107?properties=name,platform,release_year', config);
         const data = resp.data.results;
-        console.log(data);
         res.render('homepage', { title: 'Games table', data });
     } catch (error) {
         console.error(error);
@@ -42,7 +40,7 @@ app.get('/update-cobj', async (req, res) => {
     try {
         const resp = await axios.get(contacts, config);
         const data = resp.data.results;
-        res.render('updates', { title: 'Contacts | HubSpot APIs', data });
+        res.render('updates', { title: 'Update Custom Object Form | Integrating With HubSpot I Practicum', data });
     } catch (error) {
         console.error(error);
     }
@@ -52,19 +50,16 @@ app.get('/update-cobj', async (req, res) => {
 
 // * Code for Route 3 goes here
 app.post('/update-cobj', async (req, res) => {
-    const update = {
+    const body = {
         properties: {
-            "favorite_book": req.body.newVal
+            "name": req.body.newVal,
+            "platform": req.body.newVal2,
+            "release_year": req.body.newVal3
         }
     }
-
-    const email = req.query.email;
-    const updateContact = `https://api.hubapi.com/crm/v3/objects/contacts/${email}?idProperty=email`;
-
-
     try {
-        await axios.patch(updateContact, update, config);
-        res.redirect('back');
+        await axios.patch('/crm/v3/objects/2-114786107', body, config);
+        res.redirect('/');
     } catch (err) {
         console.error(err);
     }

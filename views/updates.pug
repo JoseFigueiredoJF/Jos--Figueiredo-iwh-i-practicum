@@ -1,13 +1,16 @@
 doctype html
 html(lang="en")
     head
-        title Update contact info
+        title= `${title}`
         link(rel="stylesheet", href="/css/style.css")
-    body
+    body 
+    a(href='/') Return to the homepage
         .form-wrapper
-            p User: #{userEmail}
-            p Favorite Book: #{favoriteBook}
             form(method="POST")
-                label(for="newVal") New favorite book
+                label(for="newVal") Game Name
                 input(type="text" name="newVal" required)
+                label(for="newVal2") Game Platforms, separate with comma, choose from PC,Phone,Playstation,Xbox
+                input(type="text" name="newVal2" required)
+                label(for="newVal3") Game Release Year
+                input(type="number" name="newVal3" required)
                 input(type="submit" value="Submit")
