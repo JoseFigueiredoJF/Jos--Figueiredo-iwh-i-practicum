@@ -1,5 +1,6 @@
+require('dotenv').config()
 const express = require('express');
-const axios = require('axios');
+const axiosLib = require('axios');
 const app = express();
 
 app.set('view engine', 'pug');
@@ -8,21 +9,30 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // * Please include the private app access token in your repo BUT only an access token built in a TEST ACCOUNT. Don't do this practicum in your normal account.
-const PRIVATE_APP_ACCESS = '';
+const PRIVATE_APP_ACCESS = 'pat-eu1-d3fef304-b50c-4b41-b1e7-dfdd9a6a4ac3';
+const config = {
+    headers: {
+        accept: 'application/json',
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+    },
+};
+const axios = axiosLib.create({ baseURL: 'https://api.hubapi.com' });
 
 // TODO: ROUTE 1 - Create a new app.get route for the homepage to call your custom object data. Pass this data along to the front-end and create a new pug template in the views folder.
 
 // * Code for Route 1 goes here
 app.get('/', async (req, res) => {
-    const contacts = 'https://api.hubspot.com/crm/v3/objects/contacts';
+    const games = '/crm/v3/objects/2-114786107?properties=name,platform,release_year';
     const headers = {
         Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
         'Content-Type': 'application/json'
     }
     try {
-        const resp = await axios.get(contacts, { headers });
+        const resp = await axios.get(games, config);
         const data = resp.data.results;
-        res.render('contacts', { title: 'Contacts | HubSpot APIs', data });
+        console.log(data);
+        //res.render('contacts', { title: 'Contacts | HubSpot APIs', data });
     } catch (error) {
         console.error(error);
     }
