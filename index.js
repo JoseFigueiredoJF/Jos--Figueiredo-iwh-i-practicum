@@ -18,21 +18,16 @@ const config = {
     },
 };
 const axios = axiosLib.create({ baseURL: 'https://api.hubapi.com' });
-
 // TODO: ROUTE 1 - Create a new app.get route for the homepage to call your custom object data. Pass this data along to the front-end and create a new pug template in the views folder.
 
 // * Code for Route 1 goes here
 app.get('/', async (req, res) => {
-    const games = '/crm/v3/objects/2-114786107?properties=name,platform,release_year';
-    const headers = {
-        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-        'Content-Type': 'application/json'
-    }
+    const gamesList = '/crm/v3/objects/2-114786107?properties=name,platform,release_year';
     try {
-        const resp = await axios.get(games, config);
+        const resp = await axios.get(gamesList, config);
         const data = resp.data.results;
         console.log(data);
-        //res.render('contacts', { title: 'Contacts | HubSpot APIs', data });
+        res.render('homepage', { title: 'Games table', data });
     } catch (error) {
         console.error(error);
     }
@@ -42,15 +37,12 @@ app.get('/', async (req, res) => {
 
 // * Code for Route 2 goes here
 app.get('/update-cobj', async (req, res) => {
-    const contacts = 'https://api.hubspot.com/crm/v3/objects/contacts';
-    const headers = {
-        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-        'Content-Type': 'application/json'
-    }
+    const contacts = '/crm/v3/objects/contacts';
+
     try {
-        const resp = await axios.get(contacts, { headers });
+        const resp = await axios.get(contacts, config);
         const data = resp.data.results;
-        res.render('contacts', { title: 'Contacts | HubSpot APIs', data });
+        res.render('updates', { title: 'Contacts | HubSpot APIs', data });
     } catch (error) {
         console.error(error);
     }
@@ -68,13 +60,10 @@ app.post('/update-cobj', async (req, res) => {
 
     const email = req.query.email;
     const updateContact = `https://api.hubapi.com/crm/v3/objects/contacts/${email}?idProperty=email`;
-    const headers = {
-        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-        'Content-Type': 'application/json'
-    };
+
 
     try {
-        await axios.patch(updateContact, update, { headers });
+        await axios.patch(updateContact, update, config);
         res.redirect('back');
     } catch (err) {
         console.error(err);
