@@ -6,7 +6,7 @@ To read the full directions, please go to the [practicum instructions](https://a
 
 **Put your HubSpot developer test account custom objects URL link here:**
 
----
+--- https://app-eu1.hubspot.com/contacts/27053368/objects/2-114786107/views/all/list
 
 ## Tips:
 
@@ -29,7 +29,3 @@ To read the full directions, please go to the [practicum instructions](https://a
 - All work must be your own. During the grading process we will check the revision history. Submissions that do not meet this requirement will not be considered.
 - You must have at least two new routes in your index.js file and one new pug template for the homepage.
 - You must create a developer test account and link to it in your README.md file. Submissions that do not meet this requirement will not be considered.
-
-## View custom object records
-
-- https://app-eu1.hubspot.com/contacts/27053368/objects/2-114786107/views/all/list
